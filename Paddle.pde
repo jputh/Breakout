@@ -10,8 +10,9 @@ class Paddle {
   public int yLoc = 680;
   public int xVel = 0;
   
+  
   //Constructor
-  Paddle(/* possible parameters needed to create a Paddle */){
+  Paddle(){
 
   }
   
@@ -24,6 +25,12 @@ class Paddle {
     //if(xLoc + 75 + moveLoc <= width - 1 && xLoc - 75 + moveLoc >= 1){
     //  xLoc += moveLoc;
     //}
+  }
+  
+  void reset(){
+    xLoc = 350;
+    yLoc = 680;
+    xVel = 0;
   }
   
   

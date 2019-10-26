@@ -1,3 +1,4 @@
+import controlP5.*;
 /* 
 This class is the brains of the game.
 Handles how the game is run especially interactions between the Ball, Paddle, and Box objects.
@@ -5,6 +6,7 @@ Feel free to add any helper methods/functions necessary.
 */
 
 class GameState {
+  
   
  //Declare class variables/members necessary to help with running the game
   
@@ -15,8 +17,9 @@ class GameState {
  Ball b2;
  Ball b3;
  int score;
+ boolean pause;
  
- 
+
 
  color c0 = #264653;
  color c1 = #2A9D8F;
@@ -27,17 +30,16 @@ class GameState {
  color [] boxColors = {c0, c1, c2, c3, c4, c5};
  
  
- 
- 
-
 
 //Constructor
   GameState(/* possible parameters needed to create a GameState */){
 
+     
     pad = new Paddle();
     grid = new Box[60];
     myBall = new Ball();
     score = 0;
+    pause = false;
     
     b2 = new Ball(100, 300, 1, 0);
     b3 = new Ball(300, 100, 0, 1);
@@ -53,9 +55,9 @@ class GameState {
       
       yBuffer -= 35; 
     }
-    
-     //<>//
+        //<>//
   } //<>//
+
 
 //Call update() on respective game objects: Ball, Box(es), and/or Paddle
 //Handle interactions of current state of game at every frame
@@ -67,7 +69,6 @@ class GameState {
     //check for ball-box collisions
     for(Box b : grid){
       
-      //b.isVisible = !b.isVisible;
       if(myBall.collide_box(b)){
         score += b.value;
       }
@@ -114,7 +115,15 @@ class GameState {
     
     textSize(24);
     fill(0);
-    text("Score: " + score, 320, 200);
+    text("Score: " + score, 310, 100);
+    
+    if(myBall.yLoc > height - 10){
+      lose();
+    }
+    
+    if(score == 210){
+      win();
+    }
     
 
   }
@@ -128,6 +137,16 @@ class GameState {
     else if(key == 'd'){
       pad.xVel = 3;
     }
+    else if(key == 'p'){
+      pause = !pause;
+      
+      if(pause){
+        noLoop();
+      }
+      else{
+        loop();
+      }
+    }
     
   }
   
@@ -137,4 +156,30 @@ class GameState {
     
     pad.xVel = 0;
   }
+  
+  
+  void lose(){
+    fill(195, 40, 30);
+    rect(width/2, height/2, 700, 700);
+    
+    fill(255, 255, 255);
+    textSize(24);
+    text("You Lost!", 300, 400);
+  }
+  
+  
+  void win(){
+    
+    fill(145, 195, 83);
+    rect(width/2, height/2, 700, 700);
+    
+    fill(255, 255, 255);
+    textSize(24);
+    text("You Won!", 300, 400);
+  }
 }
+
+
+
+
+  

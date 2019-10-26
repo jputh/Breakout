@@ -3,6 +3,7 @@ import controlP5.*;
 //Objects declared to create the UI (ControlP5) and GameState
 ControlP5 cp5;
 GameState gs;
+Button reset;
 
 
 
@@ -13,6 +14,9 @@ void setup(){
   background(255);
   
   gs = new GameState();
+  
+  cp5 = new ControlP5(this);
+  reset = cp5.addButton("Reset").setPosition(10, 10).setSize(50, 50);
      
 }
 
@@ -40,4 +44,18 @@ void keyPressed(){
 //Handles when keyboard input is released
 void keyReleased(){
   gs.keyReleased();
+}
+
+
+public void Reset(){
+  
+  for(Box b : gs.grid){
+    b.visible();
+  }
+  
+  gs.score = 0;
+  
+  gs.myBall.reset();
+  
+  gs.pad.reset();
 }

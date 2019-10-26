@@ -18,7 +18,7 @@ class Ball {
   Ball(/* possible parameters needed to create a Ball */){
     //Initialize variables needed to create a ball
     xLoc = width/2;
-    yLoc = height - 200;
+    yLoc = height - 150;
     xVel = 0;
     yVel = -2;
     rad = 20;
@@ -33,6 +33,7 @@ class Ball {
     rad = 20;
   }
   
+  
   //Perform actions necessary to update the current frame of the Ball
   void update(){
     
@@ -41,7 +42,6 @@ class Ball {
 
   }
   
-  //CircleX - Max(RectX, Min(CircleX, RectX + RectWidth))
   
   //Helper function to process Ball-Paddle collisions
   void collide_paddle(Paddle thePaddle){
@@ -63,8 +63,10 @@ class Ball {
           xVel = 2;
           yVel = -2;
         }
-    }
+        
+     }
   }
+
 
   //Helper function to process Ball-Box collisions
   boolean collide_box(Box theBox){
@@ -93,14 +95,14 @@ class Ball {
         }
         
         return true;
+        
       }
-      
-      
       
     }
     
     return false;
   }
+ 
  
  //Helper function to process Ball-Wall collisions (left, top, & right wall boundaries)
   void collide_wall(){
@@ -109,19 +111,27 @@ class Ball {
       xVel *= -1;
     }
     
-    if(yLoc - rad/2 <= 1 | yLoc + rad/2 >= height - 1){
+    if(yLoc - rad/2 <= 1 ){
       yVel *= -1;
     }
-    
-    
       
   }
+  
+  //reset ball location and velocity
+  void reset(){
+    xLoc = width/2;
+    yLoc = height - 150;
+    xVel = 0;
+    yVel = -2;
+  }
+  
   
   //Draws the current location of the Ball (circle or ellipse) after update() is processed 
   void draw (){
     
     fill(255);
     ellipse(xLoc, yLoc, rad, rad);
-
+    
   }
+  
 }

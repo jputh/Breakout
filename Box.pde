@@ -45,4 +45,8 @@ class Box {
    isVisible = false;
  }
  
+ void visible(){
+   isVisible = true;
+ }
+ 
 }
